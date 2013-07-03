@@ -1,0 +1,13 @@
+{
+    "name": "pickasong",
+    "version": "0.0.0",
+    "description": "collaborative playlist",
+    "dependencies": {
+        "socket.io": "latest",
+        "express": "latest",
+        "jade": "latest",
+        "json-socket": "*"
+
+    },
+    "author": "nha"
+}
