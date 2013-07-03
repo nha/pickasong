@@ -1,0 +1,8 @@
+= Pick A Song =
+
+A web app to collaboratively manage your music playlist:
+
+- scan a QR Code
+- find a song
+- add to the playlist
+- enjoy with your mates
