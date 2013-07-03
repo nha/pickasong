@@ -17,4 +17,12 @@ nc localhost 1234
 
 
 
+killall -v vlc
+
+
+
+http://stackoverflow.com/questions/10128744/meteor-js-running-in-a-debugger
+
+
+
 
