@@ -80,11 +80,11 @@ VLCplayer = function VLCplayer(host, port){
 	// ************************************************************************ 
 
 
-        // start (c)VLC with(out) its graphical interface but with it's http interface
-        //exec('(cvlc --extraintf rc --rc-host localhost:1234) &', this.InitSocketVLC);        // FIXME callback never called
+	// start (c)VLC with(out) its graphical interface but with it's http interface
+	//exec('(cvlc --extraintf rc --rc-host localhost:1234) &', this.InitSocketVLC);        // FIXME callback never called
 	console.log('VLC starting up!');
 	exec('(cvlc --extraintf rc --rc-host ' + vlcHost + ':' + vlcPort + ') &');        	// FIXME tmp only @see above
-        setTimeout(this.InitSocketVLC, 500);       					        // FIXME "manual" callback called. Assume some time to start vlc
+	setTimeout(this.InitSocketVLC, 500);       					        // FIXME "manual" callback called. Assume some time to start vlc
 	//this.InitSocketVLC();
 
 

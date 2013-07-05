@@ -5,7 +5,6 @@ fs = Npm.require('fs') ;
 // tcp library
 //http://nodejs.org/api/net.html
 net = Npm.require('net');
-socket = 
 
 function puts(error, stdout, stderr) { sys.puts(error); sys.puts(stdout); sys.puts(stderr); }
 
