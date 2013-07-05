@@ -2,6 +2,7 @@
 
 # utile pour appeler l'interface http de VLC
 mrt add http
+mrt add collectionFS
 
 ## add packages
 http://www.fusioncube.net/index.php/adding-packages-to-a-meteor-js-application
