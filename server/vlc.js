@@ -31,7 +31,7 @@ VLCplayer = function VLCplayer(host, port){
 	// TODO : decide if public or private and if public use it as a (re)start also ?
 	this.InitSocketVLC = function() {
 		//http://stackoverflow.com/questions/9328737/tcp-socket-write-function-in-node-js-net-package-not-writing-to-socket
-		console.log('establishing connection with VLC');
+		console.log('establishing connection with VLC...');
 		socket = new net.Socket();
 
 		socket.connect (vlcPort, vlcHost, function() {

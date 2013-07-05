@@ -1,13 +1,97 @@
 <head>
-  <title>pickasong</title>
+  <title>Pick A Song</title>
 </head>
 
 <body>
-  {{> hello}}
+   <!--menu bar-->
+    <div class="topbar">
+      <div class="navbar-inner">
+         {{loginButtons}} 
+         <div class="pull-right">       {{> searchbar}}      </div>
+        </div>
+    </div>
+
+   <!--playlist-->
+  <div class="container  row-fluid span12">
+    {{> playlist}}
+  </div>
+
+
+   <!--pop up suppression-->
+  <div class="modal small hide fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Delete Confirmation</h3>
+    </div>
+    <div class="modal-body">
+      <p class="error-text">Are you sure you want to delete the song ?</p>
+    </div>
+    <div class="modal-footer">
+       <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+       <button class="btn btn-danger" data-dismiss="modal">Delete</button>
+    </div>
+</div>
+
 </body>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
+
+<!--templates-->
+
+<template name="searchbar">
+     <div class="input-append">
+        <input type="text" id="" name="" placeholder="Pick A Song" >
+           <span class="add-on">
+              <i class="icon-search"></i>
+           </span>
+    </div>
 </template>
+
+
+<template name="playlist">
+<div class="well">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Artist</th>
+          <th>Title</th>
+<!--
+          <th>Lenght</th>
+          <th>Comment </th>
+-->
+        </tr>
+      </thead>
+      <tbody>
+    {{#each songtitle}}
+      {{> song}}
+    {{/each}}
+      </tbody>
+    </table>
+</div>
+</template>
+
+<template name="song">
+
+
+       <tr>
+          <td> <a href="searchquery?artist={{artist}}">{{artist}}</a> </td>
+           {{#if editing}}
+             <td> <input id="song-input" type="text" value= "{{title}}" > </td>
+           {{else}}
+              <td> {{title}} </td>
+           {{/if}}
+<!--
+          <td> <a href="#">{{lenght}}</a> </td>
+          <td> <a href="#">{{comment}}</a> </td>
+-->
+          <td>
+              <span class="rating"> <span>☆</span> </span>
+              <a href=""><i class="icon-plus-sign"></i></a>
+              <a href=""><i class="icon icon-pencil"></i></a>
+              <a href="#delModal" role="button" data-toggle="modal"><i class="icon icon-remove"></i></a>
+          </td>
+        </tr>
+</template>
+
+
+
+
