@@ -4,3 +4,8 @@
 *.DS_Store
 *.swp
 *.out
+
+# music files folder (for now)
+public
+
+
