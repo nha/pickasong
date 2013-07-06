@@ -97,6 +97,8 @@ Template.song.events(okCancelEvents(
 Template.playButton.events({
   'click': function (evt, tmpl) {
     Meteor.call("print", "play song with id : " + this._id);
+    Meteor.call("printObj", this);
+    Meteor.call("testplay", this._id);
   }
 });
 

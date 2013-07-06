@@ -77,6 +77,22 @@ if (Meteor.isServer) {
          return 0;
      },
 
+     // for debugging purposes
+     printObj: function(obj) {
+          var strObj = JSON.stringify(obj, null, 4);
+          console.log(strObj);
+     },
+
+     testplay: function (songId) {
+     	 console.log("id : " + songId);
+         //db.songs.find({ _id : "78052bca-349d-4764-8db4-994a8684a254" },{artist:1, title: 1});
+         //Songs.find({ _id : "78052bca-349d-4764-8db4-994a8684a254" },{artist:1});
+         var artist = Songs.findOne({ _id : songId }, {artist:1});
+         console.log("artiste : " + artist);
+         //console.log(Songs.find({ _id : "78052bca-349d-4764-8db4-994a8684a254" },{artist:1, title: 1}));
+
+         return 0;
+     },
 
      // play a given song
      play: function (songId) {

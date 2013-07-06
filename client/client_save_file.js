@@ -36,7 +36,7 @@ Meteor.saveFile = function(blob, name, path, type, callback) {
 
 
 
-<!-- simple file upload -->
+// simple HTML5 file upload
 Template.fileUpload.events({
   'change input': function(ev) {  
     _.each(ev.srcElement.files, function(file) {
