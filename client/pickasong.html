@@ -6,8 +6,12 @@
    <!--menu bar-->
     <div class="topbar">
       <div class="navbar-inner">
-         {{loginButtons}} 
-         <div class="pull-right">       {{> searchbar}}      </div>
+        <div class="container">
+           {{> fileUpload}}
+           {{> queueControl}}
+           {{loginButtons}} 
+           <div class="pull-right">       {{> searchbar}}      </div>
+        </div>
         </div>
     </div>
 
@@ -93,5 +97,40 @@
 </template>
 
 
+<!-- file upload with collectionFS -->
+<template name="queueControl">
+    <h3>Select file(s) to upload:</h3>
+    <input name="files" type="file" class="fileUploader" multiple>
+</template>
+
+
+<!--
+<template name="dialogAddSong">
+    {{#if $.Session.equals "visibleDialog" "song.add"}}
+    <div class="modal-backdrop"></div>
+    <div class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close cancel" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Upload Audio Files</h3>
+                </div>
+                <div class="modal-body">
+                    <input type="file" multiple class="fileSelect" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn cancel">Cancel</button>
+                    <button type="button" class="btn btn-danger save">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</template>
+-->
+
+<template name="fileUpload">
+<input type=file />
+</template>
 
 

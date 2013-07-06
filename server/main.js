@@ -19,6 +19,36 @@ if (Meteor.isServer) {
 
 	//pl.sendCommand('status');
 
+
+
+
+
+    Playlist.remove({});
+    if (Songs.find().count() === 0) {
+      // TODO exemple de donnees :
+	// etre coherent avec mongoDB (blobs binaire de musique?)
+          // string artist
+	  // string song title
+	  // lenght
+	  // comment
+	  // upvotes
+	  // downvotes
+      var mySongList = [
+                   "Belleruche",            "Minor Swing",
+                   "G-Swing",               "Sing Sing Sing (feat Ania Chow)",
+                   "Caravan Palace",        "Jolie coquine",
+                   "Parov Stellar",         "Chambermaid Swing",
+                   "Parov Stellar",         "Libella Swing",
+                   "Pink Martini",          "je ne veux pas travailler",
+                   "Sexi Sushi",            "Enfant de putain _ Salope ta mère"
+		       ];
+      for (var i = 0; i < mySongList.length; i=i+2) 
+        Songs.insert({artist: mySongList[i], title: mySongList[i+1]});
+     }
+
+
+
+
         });
 }
 
