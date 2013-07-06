@@ -1,7 +1,7 @@
 
 if (Meteor.isClient){
   Songs = new Meteor.Collection('songs');
-  Meteor.subscribe('songs');	//change when a lot of musics
+  Meteor.subscribe('songs');	//change when a lot of musics.
 
   Playlist = new Meteor.Collection('playlist');
   Meteor.subscribe('playlist');
@@ -66,7 +66,7 @@ Template.song.events({
     Session.set('editing_song', this._id);
     Meteor.flush(); // update DOM before focus
     activateInput(tmpl.find("#song-input"));
-    Meteor.call("test");
+    //Meteor.call("test");
     //test jouer chanson
     //Meteor.call("print", "monId : " + this._id);
     //Meteor.call("play", this._id);
@@ -90,5 +90,14 @@ Template.song.events(okCancelEvents(
 
 ////////// Fin Edition //////////
 
+
+////////// Play a song //////////
+
+///click play button on a song
+Template.playButton.events({
+  'click': function (evt, tmpl) {
+    Meteor.call("print", "play song with id : " + this._id);
+  }
+});
 
 }//~client

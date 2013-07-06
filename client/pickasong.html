@@ -7,8 +7,7 @@
     <div class="topbar">
       <div class="navbar-inner">
         <div class="container">
-           {{> fileUpload}}
-           {{> queueControl}}
+            <a href="#uploadModal" role="button" data-toggle="modal" ><i class="icon-plus-sign"></i></a>
            {{loginButtons}} 
            <div class="pull-right">       {{> searchbar}}      </div>
         </div>
@@ -36,10 +35,29 @@
     </div>
 </div>
 
+   <!--pop up upload-->
+  <div class="modal small hide fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Upload audio file</h3>
+    </div>
+    <div class="modal-body">
+        {{> fileUpload}}
+    </div>
+</div>
+
+
 </body>
 
 
+
+
+
+
 <!--templates-->
+
+
+
 
 <template name="searchbar">
      <div class="input-append">
@@ -73,9 +91,11 @@
 </div>
 </template>
 
+
+
+
+
 <template name="song">
-
-
        <tr>
           <td> <a href="searchquery?artist={{artist}}">{{artist}}</a> </td>
            {{#if editing}}
@@ -88,49 +108,24 @@
           <td> <a href="#">{{comment}}</a> </td>
 -->
           <td>
+              {{> playButton}}
               <span class="rating"> <span>☆</span> </span>
-              <a href=""><i class="icon-plus-sign"></i></a>
-              <a href=""><i class="icon icon-pencil"></i></a>
+              <a href=""><i class="icon-plus-sign"></i></a> 
               <a href="#delModal" role="button" data-toggle="modal"><i class="icon icon-remove"></i></a>
           </td>
         </tr>
 </template>
 
 
-<!-- file upload with collectionFS -->
-<template name="queueControl">
-    <h3>Select file(s) to upload:</h3>
-    <input name="files" type="file" class="fileUploader" multiple>
+<!-- Play button -->
+<template name="playButton">
+  <a href=""><i class="icon-play"></i></a>
 </template>
 
 
-<!--
-<template name="dialogAddSong">
-    {{#if $.Session.equals "visibleDialog" "song.add"}}
-    <div class="modal-backdrop"></div>
-    <div class="modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close cancel" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title">Upload Audio Files</h3>
-                </div>
-                <div class="modal-body">
-                    <input type="file" multiple class="fileSelect" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn cancel">Cancel</button>
-                    <button type="button" class="btn btn-danger save">Upload</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/if}}
-</template>
--->
-
+<!-- quick and simple HTML5 file upload -->
 <template name="fileUpload">
-<input type=file />
+  <input type=file />
 </template>
 
 
