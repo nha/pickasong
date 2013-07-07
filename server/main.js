@@ -89,7 +89,8 @@ if (Meteor.isServer) {
      	 console.log("artist : " + song.artist);
          var song = Songs.findOne({ title  : song.title, artist : song.artist });	// check if the song exists (it should be) TODO check ._id with the DB (could be faster then)
          // play it ! (later just add it to the playlist via the vlc object)
-         pl.add(song.title);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
+         //pl.add(song.title);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
+         pl.enqueue(song.title);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
          return 0;
      },
 

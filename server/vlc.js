@@ -18,7 +18,7 @@ VLCplayer = function VLCplayer(host, port){
 	var vlcHost=host?host:"localhost";
 	var vlcPort=port?port:"1234";
 	var socket = undefined;
-        var musicPath = process.env.PWD+'/public/';
+	var musicPath = process.env.PWD+'/public/';
 
 	// ************************************************************************ 
 	// PRIVILEGED METHODS 
@@ -71,10 +71,24 @@ VLCplayer = function VLCplayer(host, port){
 		socket.write(cmd + '\n');      
 	}//~sendCommand
 
-
+	/// TODO methods exposing the vlc RC interface
+	// TODO tests by hand before
 	// in here because it needs musicPath...
-        this.add = function(xyz){ this.sendCommand('add ' + musicPath + xyz + '.ogg'); }			// FIXME HOW TO GUESS EXTENSION ? Populate DB at startup time ???
-														// FIXME %20 in Sing Sing Sing
+	this.add = function(xyz){ this.sendCommand('add ' + musicPath + xyz + '.ogg'); }			// FIXME HOW TO GUESS EXTENSION ? Populate DB at startup time ???
+	this.enqueue = function(xyz){ this.sendCommand('enqueue ' + musicPath + xyz + '.ogg'); this.play();} 	// TODO remove play call, do it only once
+	this.playlist = function(){ this.sendCommand('playlist'); } 
+	this.play = function(){ this.sendCommand('play'); } 
+	this.stop = function(){ this.sendCommand('stop'); } 
+	this.next = function(){ this.sendCommand('next'); } 
+	this.prev = function(){ this.sendCommand('prev'); } 
+	this.goto = function(){ this.sendCommand('goto'); } 
+	this.repeat = function(onOrOff){ if(onOrOff == 'on') {this.sendCommand('repeat on');} else {this.sendCommand('repeat off');}} 
+	this.loop = function(onOrOff){ if(onOrOff == 'on') {this.sendCommand('loop on');} else {this.sendCommand('loop off');}} 
+	this.rnd = function(onOrOff){ if(onOrOff == 'on') {this.sendCommand('random on');} else {this.sendCommand('random off');}} 
+	this.clear = function(){ this.sendCommand('clear'); } 
+	this.status = function(){ this.sendCommand('status'); } 
+	this.title = function(x){ this.sendCommand('title ' + x); } 
+	//...														// FIXME %20 in Sing Sing Sing
 
 	// ************************************************************************ 
 	// PUBLIC PROPERTIES -- ANYONE MAY READ/WRITE 
@@ -99,24 +113,6 @@ VLCplayer = function VLCplayer(host, port){
 // ************************************************************************ 
 // PUBLIC METHODS -- ANYONE MAY READ/WRITE 
 // ************************************************************************ 
-
-/// TODO methods exposing the vlc RC interface
-// TODO tests by hand before
-
-VLCplayer.prototype.enqueue = function(xyz){ this.sendCommand('enqueue'); } 
-VLCplayer.prototype.playlist = function(){ this.sendCommand('playlist'); } 
-VLCplayer.prototype.play = function(){ this.sendCommand('play'); } 
-VLCplayer.prototype.stop = function(){ this.sendCommand('stop'); } 
-VLCplayer.prototype.next = function(){ this.sendCommand('next'); } 
-VLCplayer.prototype.prev = function(){ this.sendCommand('prev'); } 
-VLCplayer.prototype.goto = function(){ this.sendCommand('goto'); } 
-VLCplayer.prototype.repeat = function(onOrOff){ if(onOrOff == 'on') {this.sendCommand('repeat on');} else {this.sendCommand('repeat off');}} 
-VLCplayer.prototype.loop = function(onOrOff){ if(onOrOff == 'on') {this.sendCommand('loop on');} else {this.sendCommand('loop off');}} 
-VLCplayer.prototype.rnd = function(onOrOff){ if(onOrOff == 'on') {this.sendCommand('random on');} else {this.sendCommand('random off');}} 
-VLCplayer.prototype.clear = function(){ this.sendCommand('clear'); } 
-VLCplayer.prototype.status = function(){ this.sendCommand('status'); } 
-VLCplayer.prototype.title = function(x){ this.sendCommand('title ' + x); } 
-//...
 
 
 
