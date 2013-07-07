@@ -7,7 +7,7 @@ fs = Npm.require('fs') ;
 //http://nodejs.org/api/net.html
 net = Npm.require('net');
 
-function puts(error, stdout, stderr) { sys.puts(error); sys.puts(stdout); sys.puts(stderr); }
+puts = function(error, stdout, stderr) { sys.puts(error); sys.puts(stdout); sys.puts(stderr); }
 
 
 if (Meteor.isServer) {
@@ -67,7 +67,7 @@ if (Meteor.isServer) {
   Meteor.methods({
     test: function () {
        console.log("test song playing");
-       exec(" cvlc /home/nha/Dropbox/repos/pick-a-song/server/music ", puts);
+       //exec(" cvlc /home/nha/Dropbox/repos/pick-a-song/server/music ", puts);
        return 0;
     },
 
@@ -83,14 +83,13 @@ if (Meteor.isServer) {
           console.log(strObj);
      },
 
-     testplay: function (songId) {
-     	 console.log("id : " + songId);
-         //db.songs.find({ _id : "78052bca-349d-4764-8db4-994a8684a254" },{artist:1, title: 1});
-         //Songs.find({ _id : "78052bca-349d-4764-8db4-994a8684a254" },{artist:1});
-         var artist = Songs.findOne({ _id : songId }, {artist:1});
-         console.log("artiste : " + artist);
-         //console.log(Songs.find({ _id : "78052bca-349d-4764-8db4-994a8684a254" },{artist:1, title: 1}));
-
+     testplay: function (song) {
+     	 console.log("songId : " + song._id);
+     	 console.log("title : " + song.title);
+     	 console.log("artist : " + song.artist);
+         var song = Songs.findOne({ title  : song.title, artist : song.artist });	// check if the song exists (it should be) TODO check ._id with the DB (could be faster then)
+         // play it ! (later just add it to the playlist via the vlc object)
+         pl.add(song.title);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
          return 0;
      },
 
@@ -113,4 +112,6 @@ if (Meteor.isServer) {
      }
 
   }); // ~Meteor.methods
+
+
 
