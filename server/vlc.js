@@ -74,6 +74,7 @@ VLCplayer = function VLCplayer(host, port){
 
 	// in here because it needs musicPath...
         this.add = function(xyz){ this.sendCommand('add ' + musicPath + xyz + '.ogg'); }			// FIXME HOW TO GUESS EXTENSION ? Populate DB at startup time ???
+														// FIXME %20 in Sing Sing Sing
 
 	// ************************************************************************ 
 	// PUBLIC PROPERTIES -- ANYONE MAY READ/WRITE 

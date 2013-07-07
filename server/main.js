@@ -39,7 +39,7 @@ if (Meteor.isServer) {
                    "Caravan Palace",        "Jolie coquine",
                    "Parov Stellar",         "Chambermaid Swing",
                    "Parov Stellar",         "Libella Swing",
-                   "Pink Martini",          "je ne veux pas travailler",
+                   "Pink Martini",          "Je ne veux pas travailler",
                    "Sexi Sushi",            "Enfant de putain _ Salope ta mère"
 		       ];
       for (var i = 0; i < mySongList.length; i=i+2) 
