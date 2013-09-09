@@ -19,6 +19,8 @@ VLCplayer = function VLCplayer(host, port){
 	var vlcPort=port?port:"1234";
 	var socket = undefined;
 	var musicPath = process.env.PWD+'/public/';
+	var hasVLCstarted = false;
+
 
 	// ************************************************************************ 
 	// PRIVILEGED METHODS 
@@ -65,6 +67,35 @@ VLCplayer = function VLCplayer(host, port){
 	}//~InitSocketVLC
 
 
+	this.startVLC = function() {
+		// TODO : do not start is already started ?
+
+		// start (c)VLC with(out) its graphical interface but with it's http interface
+		console.log('VLC starting up!');
+		console.log('Music path : ' + musicPath);
+
+		//exec('(cvlc --extraintf rc --rc-host localhost:1234) &', this.InitSocketVLC);        // FIXME callback never called
+
+		exec('(vlc --extraintf rc --rc-host ' + vlcHost + ':' + vlcPort + ') &');        	// FIXME tmp only @see above
+
+		// wait until it is started
+		// and then use a socket to connect to it
+		//while(! this.hasVLCstarted) {
+
+			exec('pgrep -nc vlc', function(error, stdout, stderr) {
+			
+				if(stdout == "1\n") {
+					console.log("launch the socket!" + this.hasVLCstarted);
+					this.hasVLCstarted = true;
+					setTimeout(this.InitSocketVLC, 1500);       				// Assume some time to let vlc start properly
+				}
+			});
+		//}
+
+		
+	}//~startVLC
+
+
 	// access VLC RC Interface via a socket
 	this.sendCommand =  function(cmd) {
 		// TODO an array of accepted keywords ?
@@ -99,13 +130,8 @@ VLCplayer = function VLCplayer(host, port){
 	// CONSTRUCTOR ADDITIONNAL CODE
 	// ************************************************************************ 
 
+	this.startVLC();
 
-	// start (c)VLC with(out) its graphical interface but with it's http interface
-	console.log('VLC starting up!');
-	//exec('(cvlc --extraintf rc --rc-host localhost:1234) &', this.InitSocketVLC);        // FIXME callback never called
-
-	exec('(vlc --extraintf rc --rc-host ' + vlcHost + ':' + vlcPort + ') &');        	// FIXME tmp only @see above
-	setTimeout(this.InitSocketVLC, 500);       					        // FIXME "manual" callback called. Assume some time to start vlc
 
 }//~constructor
 

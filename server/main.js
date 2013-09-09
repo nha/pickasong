@@ -3,17 +3,19 @@ sys = Npm.require('sys');
 exec = Npm.require('child_process').exec;
 //io = Npm.require('socket.io')) ;
 fs = Npm.require('fs') ;
+
 // tcp library
 //http://nodejs.org/api/net.html
 net = Npm.require('net');
+Future  = Npm.require('fibers/future');
 
 puts = function(error, stdout, stderr) { sys.puts(error); sys.puts(stdout); sys.puts(stderr); }
-
+//puts = function(error, stdout, stderr) { if(error){sys.puts(error)}; if(stdout){sys.puts(stdout)}; if(stderr){sys.puts(stderr)}; }
 
 if (Meteor.isServer) {
         Meteor.startup(function () {
                console.log("Server starting up!");
-	       exec("pwd", puts);
+               console.log(process.cwd());	// equivalent a  exec("pwd", puts);
 
                pl = new VLCplayer();
 
@@ -24,6 +26,8 @@ if (Meteor.isServer) {
 
 
     Playlist.remove({});
+    Songs.remove({});
+
     if (Songs.find().count() === 0) {
       // TODO exemple de donnees :
 	// etre coherent avec mongoDB (blobs binaire de musique?)
@@ -47,10 +51,64 @@ if (Meteor.isServer) {
      }
 
 
+/*
+var dir='./public/';
+var data={};
+
+fs.readdir(dir ,function(err, files){
+    if (err) throw err;
+    var c=0;
+    console.log('reading music files');
+    files.forEach(function(file){
+    console.log(file);
+    //Songs.insert({songpath: file});
+    });
+});
+*/
+
+//populateDB('/home/nha/repo/pickasong/public', function(arr){   console.log(JSON.stringify(arr, null, 4));  }); // TODO find a way to revert path to ./public (broken in meteor update)
+
+/*
+var length = songFiles.length,
+    element = null;
+for (var i = 0; i < length; i++) {
+  element = arr[i];
+  console.log(element);
+}*/
+        });//~Meteor.startup
+}//~Meteor.isServer
 
 
-        });
+
+
+
+// http://stackoverflow.com/questions/10049557/reading-all-files-in-a-directory-store-them-in-objects-and-send-the-object
+function populateDB(musicPath, callback) {
+//  Fiber(function() { 
+	var data = {};
+	fs.readdir(musicPath, function(err, files){
+	    if (err) {
+		console.log('main.js : populateDB : error reading music directory - ' + err);
+		throw err;
+	    }
+	    var c=0;
+	    console.log('reading music files');
+	    files.forEach(function(file){
+            c++;
+	    //console.log(file);
+            data[c] = file;
+	    //Songs.insert({songpath: file});	// TODO suppress var data
+           if (0===--c) {
+                console.log(c + ' ' + data);  //socket.emit('init', {data: data});
+                callback(data);
+            }
+	    });
+	});
+	
+//  }).run();  
 }
+
+
 
 
 

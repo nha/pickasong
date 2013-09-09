@@ -8,3 +8,4 @@ insecure
 preserve-inputs
 http
 bootstrap
+standard-app-packages
