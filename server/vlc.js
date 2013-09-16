@@ -37,8 +37,7 @@ VLCplayer = function VLCplayer(host, port){
 		console.log('establishing connection with VLC...');
 		socket = new net.Socket();
 
-		socket.connect (vlcPort, vlcHost, function() {
-			console.log("connected to VLC!")
+		socket.connect(vlcPort, vlcHost, function() {		// launch the socket !
 			socket.write('status\n');       
 		});
 
@@ -50,6 +49,10 @@ VLCplayer = function VLCplayer(host, port){
 
 		socket.on('error', function(exception){
 			console.log('Exception:' + exception);
+			if(exception.errno == 'ECONNREFUSED') {			
+				// VLC isn't reacheable yet, wait and retry
+				// TODO HERE
+			}
 		});
 
 		socket.on('drain', function() {
@@ -67,31 +70,23 @@ VLCplayer = function VLCplayer(host, port){
 	}//~InitSocketVLC
 
 
+	// start (c)VLC with(out) its graphical interface but with it's RC interface
+	// and then use a socket to connect to it
 	this.startVLC = function() {
 
-		// start (c)VLC with(out) its graphical interface but with it's http interface
+
 		console.log('VLC starting up!');
 		console.log('Music path : ' + musicPath);
+		//exec('(vlc --extraintf rc --rc-host ' + vlcHost + ':' + vlcPort + ') &');        	// start VLC (vlc --extraintf rc --rc-host localhost:1234) &
 
-		//exec('(cvlc --extraintf rc --rc-host localhost:1234) &', this.InitSocketVLC);        // FIXME callback never called
+		// can be usefull to detect if VLC process is started
+		//exec('pgrep -nc vlc', function(error, stdout, stderr) {
+		//	if(stdout == "1\n") {
+		//		console.log("vlc starting?);
+		//	}
+		//});
 
-		exec('(vlc --extraintf rc --rc-host ' + vlcHost + ':' + vlcPort + ') &');        	// FIXME tmp only @see above
-
-		// wait until it is started
-		// and then use a socket to connect to it
-		//while(! this.hasVLCstarted) {
-
-			exec('pgrep -nc vlc', function(error, stdout, stderr) {
-				if(stdout == "1\n") {
-					console.log("launch the socket!" + hasVLCstarted);
-					hasVLCstarted = true;						//ugly (no this here): http://stackoverflow.com/questions/11555125/javascript-how-can-set-parent-object-variable-in-callback  see also http://howtonode.org/what-is-this
-					InitSocketVLC();
-					//setTimeout(this.InitSocketVLC, 1500);       				// Assume some time to let vlc start properly
-				}
-			});
-		//}
-
-		console.log('vrai?' + hasVLCstarted);
+		setTimeout(this.InitSocketVLC, 2000);       						// Assume some time to let vlc start properly (will be handled in the socket anyway)
 	}//~startVLC
 
 
@@ -103,7 +98,7 @@ VLCplayer = function VLCplayer(host, port){
 
 	/// TODO methods exposing the vlc RC interface
 	// TODO tests by hand before
-	// in here because it needs musicPath...
+	// in here mainly because it needs musicPath...
 	this.add = function(xyz){ this.sendCommand('add ' + musicPath + xyz + '.ogg'); }			// FIXME HOW TO GUESS EXTENSION ? Populate DB at startup time ???
 	this.enqueue = function(xyz){ this.sendCommand('enqueue ' + musicPath + xyz + '.ogg'); this.play();} 	// TODO remove play call, do it only once
 	this.playlist = function(){ this.sendCommand('playlist'); } 
