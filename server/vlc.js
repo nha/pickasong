@@ -5,7 +5,9 @@
 
 // FIXME VLC may be slow to slow to start, so we have to wait
 // mostly OK since commands won't flow away right when starting the app, but probably needs fixing
+// And the first attempt seem to always fail. No idea why
 // @ see variable hasVLCstarted : use it
+
 
 // constructor 
 VLCplayer = function VLCplayer(host, port){ 
@@ -16,9 +18,15 @@ VLCplayer = function VLCplayer(host, port){
 	this.musicPath = process.env.PWD+'/public/';
 	this.hasVLCstarted = false;
 
-	console.log('starting VLC...');
 
-	this.startVLC.call(this);
+
+	if(this.vlcHost == "localhost") {
+		console.log('starting VLC...');
+		this.startVLC.call(this);					//start VLC locally
+	}
+	else {
+		console.log('connecting to VLC...');
+	}
 	setTimeout(this.InitSocketVLC.call(this), 2000);       			// Assume some time to let vlc start properly (or else the socket retries anyway)
 										// TODO? use http://www.w3schools.com/js/js_timing.asp  instead?
 
@@ -52,7 +60,7 @@ VLCplayer.prototype.InitSocketVLC = function() {
 		if(exception.errno == 'ECONNREFUSED') {			
 			// VLC isn't reacheable yet, wait and retry (async style)
 			setTimeout(Myself.InitSocketVLC.bind(Myself), 2000);		// retry every 2 sec
-											// TODO? compteur ? et/ou utilisercomme condition isVLCrunning( function(res){console.log('kikoo' + res); }  );
+											// TODO? counter ? and/or use isVLCrunning( function(res){if(res){//...retry} }  );
 		}
 	});
 
@@ -93,7 +101,7 @@ VLCplayer.prototype.isVLCrunning = function(callback){
 // access VLC RC Interface via a socket
 VLCplayer.prototype.sendCommand =  function(cmd) {
 	// TODO an array of accepted keywords ?
-	socket.write(cmd + '\n');      
+	this.socket.write(cmd + '\n');      
 }//~sendCommand
 
 
