@@ -68,7 +68,6 @@ VLCplayer = function VLCplayer(host, port){
 
 
 	this.startVLC = function() {
-		// TODO : do not start is already started ?
 
 		// start (c)VLC with(out) its graphical interface but with it's http interface
 		console.log('VLC starting up!');
@@ -83,16 +82,16 @@ VLCplayer = function VLCplayer(host, port){
 		//while(! this.hasVLCstarted) {
 
 			exec('pgrep -nc vlc', function(error, stdout, stderr) {
-			
 				if(stdout == "1\n") {
-					console.log("launch the socket!" + this.hasVLCstarted);
-					this.hasVLCstarted = true;
-					setTimeout(this.InitSocketVLC, 1500);       				// Assume some time to let vlc start properly
+					console.log("launch the socket!" + hasVLCstarted);
+					hasVLCstarted = true;						//ugly (no this here): http://stackoverflow.com/questions/11555125/javascript-how-can-set-parent-object-variable-in-callback  see also http://howtonode.org/what-is-this
+					InitSocketVLC();
+					//setTimeout(this.InitSocketVLC, 1500);       				// Assume some time to let vlc start properly
 				}
 			});
 		//}
 
-		
+		console.log('vrai?' + hasVLCstarted);
 	}//~startVLC
 
 

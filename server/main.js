@@ -16,6 +16,7 @@ if (Meteor.isServer) {
         Meteor.startup(function () {
                console.log("Server starting up!");
                console.log(process.cwd());	// equivalent a  exec("pwd", puts);
+	       console.log(process.env.PWD);
 
                pl = new VLCplayer();
 
