@@ -16,9 +16,11 @@ VLCplayer = function VLCplayer(host, port){
 	this.musicPath = process.env.PWD+'/public/';
 	this.hasVLCstarted = false;
 
+	console.log('starting VLC...');
+
 	this.startVLC.call(this);
-	//this.InitSocketVLC() // works! http://stackoverflow.com/questions/3630054/how-do-i-pass-the-this-context-to-a-function
-	setTimeout(this.InitSocketVLC, 5000);       				// Assume some time to let vlc start properly (or else the socket retries anyway)
+	setTimeout(this.InitSocketVLC.call(this), 2000);       			// Assume some time to let vlc start properly (or else the socket retries anyway)
+										// TODO? use http://www.w3schools.com/js/js_timing.asp  instead?
 
 } //~VLCplayer (constructor)
 
@@ -32,20 +34,12 @@ VLCplayer.prototype.toString = this.getName = function() {
 // initialise the communication with the player
 // the player must have been started beforehand
 VLCplayer.prototype.InitSocketVLC = function() {
-	//http://stackoverflow.com/questions/9328737/tcp-socket-write-function-in-node-js-net-package-not-writing-to-socket
-	console.log('establishing connection with VLC...');
+	var Myself = this;	// clojure
 	this.socket = new net.Socket();
 
 	this.socket.connect(this.vlcPort, this.vlcHost, function() {		// launch the socket !
-		socket.write('status\n');       
+		Myself.socket.write('status\n');       
 	});
-
-	var Myself = this;	// clojure
-	console.log(this.vlcHost);
-	console.log(Myself.vlcHost);
-
-	console.log(this.getName());
-	console.log(Myself.getName());
 
 	/// event handlers ///
 
@@ -57,8 +51,8 @@ VLCplayer.prototype.InitSocketVLC = function() {
 		console.log('Exception:' + exception);
 		if(exception.errno == 'ECONNREFUSED') {			
 			// VLC isn't reacheable yet, wait and retry (async style)
-			//console.log("VLC isn't reacheable yet, wait and retry (async style)");
-			//Myself.isVLCrunning( function(res){console.log('VLC??? ' + res); }  );
+			setTimeout(Myself.InitSocketVLC.bind(Myself), 2000);		// retry every 2 sec
+											// TODO? compteur ? et/ou utilisercomme condition isVLCrunning( function(res){console.log('kikoo' + res); }  );
 		}
 	});
 
@@ -79,10 +73,7 @@ VLCplayer.prototype.InitSocketVLC = function() {
 // start (c)VLC with(out) its graphical interface but with it's RC interface
 // and then use a socket to connect to it
 VLCplayer.prototype.startVLC = function() {
-
-	console.log('VLC starting up!');
-	console.log('Music path : ' + this.musicPath);
-	exec('(vlc --extraintf rc --rc-host ' + this.vlcHost + ':' + this.vlcPort + ') &');        	// start VLC (vlc --extraintf rc --rc-host localhost:1234) &
+	exec('(vlc --extraintf rc --rc-host ' + this.vlcHost + ':' + this.vlcPort + ') &', puts);        	// start VLC (vlc --extraintf rc --rc-host localhost:1234) &
 }//~startVLC
 
 
