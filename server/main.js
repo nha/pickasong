@@ -19,6 +19,7 @@ if (Meteor.isServer) {
 	       console.log(process.env.PWD);
 
                pl = new VLCplayer();
+               pl.isVLCrunning( function(res){console.log('VLC??? ' + res); }  );
 
 	//pl.sendCommand('status');
 
