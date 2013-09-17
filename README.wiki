@@ -6,3 +6,7 @@ A web app to collaboratively manage your music playlist:
 - find a song
 - add to the playlist
 - enjoy with your mates
+
+
+TODO
+	rename some files in main.*

@@ -96,6 +96,7 @@ Template.song.events(okCancelEvents(
 ///click play button on a song
 Template.playButton.events({
   'click': function (evt, tmpl) {
+    evt.preventDefault();		// we don't want to change the URL
     Meteor.call("printObj", this);
     Meteor.call("playSong", this);
   }

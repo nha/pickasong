@@ -109,6 +109,9 @@ VLCplayer.prototype.sendCommand =  function(cmd) {
 
 /// TODO methods exposing the vlc RC interface
 // TODO tests by hand
+// VLC -I rc
+// > longhelp
+
 VLCplayer.prototype.add = function(xyz){ this.sendCommand('add ' + this.musicPath + xyz + '.ogg'); }				// FIXME HOW TO GUESS EXTENSION ? Populate DB at startup time ???
 VLCplayer.prototype.enqueue = function(xyz){ this.sendCommand('enqueue ' + this.musicPath + xyz + '.ogg'); this.play();} 	// TODO remove play call, do it only once
 VLCplayer.prototype.playlist = function(){ this.sendCommand('playlist'); } 
@@ -116,14 +119,20 @@ VLCplayer.prototype.play = function(){ this.sendCommand('play'); }
 VLCplayer.prototype.stop = function(){ this.sendCommand('stop'); } 
 VLCplayer.prototype.next = function(){ this.sendCommand('next'); } 
 VLCplayer.prototype.prev = function(){ this.sendCommand('prev'); } 
-VLCplayer.prototype.goto = function(){ this.sendCommand('goto'); } 
+VLCplayer.prototype.goto = function(){ this.sendCommand('goto'); } 		//? arg
 VLCplayer.prototype.repeat = function(onOrOff){ if(onOrOff == 'on') {this.sendCommand('repeat on');} else {this.sendCommand('repeat off');}} 
 VLCplayer.prototype.loop = function(onOrOff){ if(onOrOff == 'on') {this.sendCommand('loop on');} else {this.sendCommand('loop off');}} 
 VLCplayer.prototype.rnd = function(onOrOff){ if(onOrOff == 'on') {this.sendCommand('random on');} else {this.sendCommand('random off');}} 
 VLCplayer.prototype.clear = function(){ this.sendCommand('clear'); } 
 VLCplayer.prototype.status = function(){ this.sendCommand('status'); } 
-VLCplayer.prototype.title = function(x){ this.sendCommand('title ' + x); } 
-//...														// FIXME %20 in Sing Sing Sing
+VLCplayer.prototype.title = function(x){ this.sendCommand('title ' + x); } 	//?// FIXME %20 in Sing Sing Sing
+//...	
+VLCplayer.prototype.pause = function(){ this.sendCommand('pause '); } 		//?
+//...														
+VLCplayer.prototype.volume = function(x){this.sendCommand('volume ' + x);
+} 		//?
+//...	
+//...	
 
 
 
