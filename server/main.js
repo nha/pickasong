@@ -21,31 +21,36 @@ if (Meteor.isServer) {
                pl = new VLCplayer();
 
 
-
+(function() {		// some bootsrap data that corresponds to the data in the /public directory
     Playlist.remove({});
     Songs.remove({});
-
     if (Songs.find().count() === 0) {
-      // TODO exemple de donnees :
+
+      // exemple de donnees :
 	// etre coherent avec mongoDB (blobs binaire de musique?)
           // string artist
 	  // string song title
+	  // filepath ????? => see below !
 	  // lenght
 	  // comment
 	  // upvotes
 	  // downvotes
-      var mySongList = [
-                   "Belleruche",            "Minor Swing",
-                   "G-Swing",               "Sing Sing Sing (feat Ania Chow)",
-                   "Caravan Palace",        "Jolie coquine",
-                   "Parov Stellar",         "Chambermaid Swing",
-                   "Parov Stellar",         "Libella Swing",
-                   "Pink Martini",          "Je ne veux pas travailler",
-                   "Sexi Sushi",            "Enfant de putain _ Salope ta mère"
-		       ];
-      for (var i = 0; i < mySongList.length; i=i+2) 
-        Songs.insert({artist: mySongList[i], title: mySongList[i+1]});
+	// bootstraping code for testing purposes
+	var testJSONsonglist = [
+		{"artist": "Belleruche",		"title": "Minor Swing",						"filename": "Minor Swing"},
+		{"artist": "G-Swing",			"title": "Sing Sing Sing (feat Ania Chow)",			"filename": "Sing Sing Sing (feat Ania Chow)"},
+		{"artist": "Caravan Palace", 		"title": "Jolie coquine", 					"filename": "Jolie coquine"},
+		{"artist": "Parov Stellar", 		"title": "Chambermaid Swing", 					"filename": "Chambermaid Swing"},
+		{"artist": "Parov Stellar", 		"title": "Libella Swing", 					"filename": "Libella Swing"},
+		{"artist": "Pink Martini", 		"title": "Je ne veux pas travailler", 				"filename": "Je ne veux pas travailler"},
+		{"artist": "Sexi Sushi", 		"title": "Enfant de putain _ Salope ta mère", 			"filename": "Enfant de putain _ Salope ta mère"}
+	    ];
+
+      for (var i = 0; i < testJSONsonglist.length; i++) {
+        Songs.insert(testJSONsonglist[i]);
+	}
      }
+})();
 
 
 /*
@@ -145,19 +150,16 @@ function populateDB(musicPath, callback) {
          var song = Songs.findOne({ title  : song.title, artist : song.artist });	// check if the song exists (it should be) TODO check ._id with the DB (could be faster then)
          // play it ! (later just add it to the playlist via the vlc object)
          //pl.add(song.title);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
-         pl.enqueue(song.title);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
+         pl.enqueue(song.filename);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??) because that information will come from the forms anyway => the filename attribute should just be some kind of method...
          return 0;
      },
 
-     // play a given song
-     play: function (songId) {
-     	 console.log("id : " + songId);
-         //db.songs.find({ _id : "78052bca-349d-4764-8db4-994a8684a254" },{artist:1, title: 1});
-         //Songs.find({ _id : "78052bca-349d-4764-8db4-994a8684a254" },{artist:1});
-         var artist = Songs.findOne({ _id : "78052bca-349d-4764-8db4-994a8684a254" }, {artist:1});
-         console.log("artiste : " + artist);
-         //console.log(Songs.find({ _id : "78052bca-349d-4764-8db4-994a8684a254" },{artist:1, title: 1}));
-
+     // play a given song - (in fact add it at the end of the playlist)
+     playSong: function (song) {
+         var song = Songs.findOne({ title  : song.title, artist : song.artist });	// check if the song exists (it should be) TODO check ._id with the DB (could be faster then)
+         pl.enqueue(song.filename);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
+						// because that information will
+						// come from the forms anyway => the filename attribute should just be some kind of mongo method... (is it possible?)
          return 0;
      },
 
@@ -165,6 +167,40 @@ function populateDB(musicPath, callback) {
      vlcCommand: function(cmd) {
         pl.sendCommand(cmd);
         return 0;
+     },
+
+
+
+// ***********************
+// WEB PLAYER METHODS
+// ***********************
+// TODO move in web_player.js
+// ou exposer directement pl.sendCommand ??
+
+     // start the VLC player
+     startPlayer: function() {
+        pl.play();
+        return 0;
+     },
+
+     // stop the VLC player
+     stopPlayer: function() {
+        pl.stop();
+        return 0;
+     },
+
+     // set the volume of the VLC player
+     setVolume: function(volume) {
+	// todo in method to implement : VLC volume is between 0 and 256 (can be more, but we restrict it at 100%)
+	// while the volume on the web interface is between 0 and 100.
+	console.log('main.js : setVolume : A implementer : ' + volume);
+        return 0;
+     },
+
+     // toggle the volume of the VLC player
+     toggleVol: function() {
+	console.log('main.js : toggleVol : A implementer : ');
+	return 0;
      }
 
   }); // ~Meteor.methods

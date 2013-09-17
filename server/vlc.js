@@ -16,7 +16,7 @@ VLCplayer = function VLCplayer(host, port){
 	this.vlcPort = port?port:"1234";
 	this.socket = undefined;
 	this.musicPath = process.env.PWD+'/public/';
-	this.hasVLCstarted = false;
+	this.connectedToVLC = false;		// unused
 
 
 
@@ -57,8 +57,9 @@ VLCplayer.prototype.InitSocketVLC = function() {
 
 	this.socket.on('error', function(exception){
 		console.log('Exception:' + exception);
-		if(exception.errno == 'ECONNREFUSED') {			
+		if(exception.errno == 'ECONNREFUSED') {
 			// VLC isn't reacheable yet, wait and retry (async style)
+			Myself.connectedToVLC = false;	
 			setTimeout(Myself.InitSocketVLC.bind(Myself), 2000);		// retry every 2 sec
 											// TODO? counter ? and/or use isVLCrunning( function(res){if(res){//...retry} }  );
 		}
@@ -66,6 +67,7 @@ VLCplayer.prototype.InitSocketVLC = function() {
 
 	this.socket.on('drain', function() {
 		console.log("drain!");
+		Myself.connectedToVLC = true;
 	});
 
 	this.socket.on('timeout', function() {

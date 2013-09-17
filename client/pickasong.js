@@ -1,13 +1,13 @@
 
 if (Meteor.isClient){
   Songs = new Meteor.Collection('songs');
-  Meteor.subscribe('songs');	//change when a lot of musics.
+  Meteor.subscribe('songs');							// change when a lot of musics.
 
   Playlist = new Meteor.Collection('playlist');
   Meteor.subscribe('playlist');
 
   Template.playlist.songtitle = function () {
-    return Songs.find({}, {sort: {artist: 1, title: 1}});
+    return Songs.find({}, {sort: {artist: 1, title: 1}});			
   };
 
 
@@ -97,7 +97,7 @@ Template.song.events(okCancelEvents(
 Template.playButton.events({
   'click': function (evt, tmpl) {
     Meteor.call("printObj", this);
-    Meteor.call("testplay", this);
+    Meteor.call("playSong", this);
   }
 });
 
