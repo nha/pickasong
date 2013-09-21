@@ -7,7 +7,7 @@
 // mostly OK since commands won't flow away right when starting the app, but probably needs fixing
 // And the first attempt seem to always fail. No idea why
 // @ see variable hasVLCstarted : use it
-
+// @improvement : use VLC volume normalization
 
 // constructor 
 VLCplayer = function VLCplayer(host, port){ 
@@ -61,7 +61,7 @@ VLCplayer.prototype.InitSocketVLC = function() {
 			// VLC isn't reacheable yet, wait and retry (async style)
 			Myself.connectedToVLC = false;	
 			setTimeout(Myself.InitSocketVLC.bind(Myself), 2000);		// retry every 2 sec
-											// TODO? counter ? and/or use isVLCrunning( function(res){if(res){//...retry} }  );
+											// TODO? counter ? and/or use isVLCrunning( function(res){if(!res){//...retry} }  );
 		}
 	});
 
@@ -82,6 +82,7 @@ VLCplayer.prototype.InitSocketVLC = function() {
 
 // start (c)VLC with(out) its graphical interface but with it's RC interface
 // and then use a socket to connect to it
+// @improvement : test if vlc if running ?
 VLCplayer.prototype.startVLC = function() {
 	exec('(vlc --extraintf rc --rc-host ' + this.vlcHost + ':' + this.vlcPort + ') &', puts);        	// start VLC (vlc --extraintf rc --rc-host localhost:1234) &
 }//~startVLC
