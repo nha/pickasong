@@ -149,6 +149,8 @@ function populateDB(musicPath, callback) {
          pl.enqueue(song.filename);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
 						// because that information will
 						// come from the forms anyway => the filename attribute should just be some kind of mongo method... (is it possible?)
+
+	 Playlist.insert(song);			// also update the playlist for everyone (yes this could also have been made on the client side)
          return 0;
      },
 
