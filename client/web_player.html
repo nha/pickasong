@@ -4,7 +4,8 @@
      note : unlike the rest of this app, this code is meant to be (ultimately) accessible only to the admin of the event 
      that means only one 'instance' of the player. The code isn't meant otherwise. 
      for instance the volume isn't a Meteor Collection, which means that when changing it, other (non existing :) players will not get noticed
-     other than that, it is not a real problem. These control have not feedback, that's all.
+     other than that, it is not a real problem.
+     In short these control have not feedback : if VLC or another user changes it, it is not reflected on the other.
 -->
 
 <template name='player'>
@@ -32,5 +33,6 @@
 </template>
 
 <template name='setVolume'>
-	<input type="range"  min="0" max="100 value="50"  step="1"/>
+	<!-- default VLC volume is 100. -->
+	<input type="range"  min="0" max="100" value="100"  step="1"/>
 </template>
