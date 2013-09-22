@@ -1,6 +1,6 @@
 
 if (Meteor.isClient){
-	// nothing here...
+	// nothing here... yet
 
 };
 

@@ -1,0 +1,26 @@
+
+<template name="playlist">
+<div class="well">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Artist</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+    {{#each songs_in_playlist}}
+      {{> playlist_song}}
+    {{/each}}
+      </tbody>
+    </table>
+</div>
+</template>
+
+
+<template name="playlist_song">
+       <tr>
+          <td>{{artist}} </td>
+          <td> {{title}} </td>
+       </tr>
+</template>

@@ -46,10 +46,23 @@ if (Meteor.isServer) {
 		{"artist": "Pink Martini", 		"title": "Je ne veux pas travailler", 				"filename": "Je ne veux pas travailler"},
 		{"artist": "Sexi Sushi", 		"title": "Enfant de putain _ Salope ta mère", 			"filename": "Enfant de putain _ Salope ta mère"}
 	    ];
-
-      for (var i = 0; i < testJSONsonglist.length; i++) {
-        Songs.insert(testJSONsonglist[i]);
+        for (var i = 0; i < testJSONsonglist.length; i++) {
+          Songs.insert(testJSONsonglist[i]);
 	}
+
+	// test playlist
+	/*
+	var testJSONplaylist = [
+
+		{"artist": "Parov Stellar", 		"title": "Chambermaid Swing", 					"filename": "Chambermaid Swing"},
+		{"artist": "Parov Stellar", 		"title": "Libella Swing", 					"filename": "Libella Swing"}
+	    ];
+        for (var i = 0; i < testJSONplaylist.length; i++) {
+          Playlist.insert(testJSONplaylist[i]);
+	}
+	*/
+     
+
      }
 })();
 
