@@ -6,7 +6,7 @@ if (Meteor.isClient){
   Playlist = new Meteor.Collection('playlist');
   Meteor.subscribe('playlist');
 
-  Template.playlist.songtitle = function () {
+  Template.library.songtitle = function () {
     return Songs.find({}, {sort: {artist: 1, title: 1}});			
   };
 
