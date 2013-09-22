@@ -9,4 +9,5 @@ A web app to collaboratively manage your music playlist:
 
 
 TODO
-	rename some files in main.*
+
+http://stackoverflow.com/questions/10058997/bash-script-get-song-artist-from-command-line/10080270#10080270

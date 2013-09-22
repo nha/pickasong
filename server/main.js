@@ -61,8 +61,6 @@ if (Meteor.isServer) {
           Playlist.insert(testJSONplaylist[i]);
 	}
 	*/
-     
-
      }
 })();
 
