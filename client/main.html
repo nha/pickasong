@@ -76,58 +76,7 @@
 </template>
 
 
-<template name="library">
-<div class="well">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Artist</th>
-          <th>Title</th>
-<!--
-          <th>Lenght</th>
-          <th>Comment </th>
--->
-        </tr>
-      </thead>
-      <tbody>
-    {{#each songtitle}}
-      {{> song}}
-    {{/each}}
-      </tbody>
-    </table>
-</div>
-</template>
 
-
-
-
-
-<template name="song">
-       <tr>
-          <td> <a href="searchquery?artist={{artist}}">{{artist}}</a> </td>
-           {{#if editing}}
-             <td> <input id="song-input" type="text" value= "{{title}}" > </td>
-           {{else}}
-              <td> {{title}} </td>
-           {{/if}}
-<!--
-          <td> <a href="#">{{lenght}}</a> </td>
-          <td> <a href="#">{{comment}}</a> </td>
--->
-          <td>
-              {{> playButton}}
-              <span class="rating"> <span>☆</span> </span>
-              <a href=""><i class="icon-plus-sign"></i></a> 
-              <a href="#delModal" role="button" data-toggle="modal"><i class="icon icon-remove"></i></a>
-          </td>
-        </tr>
-</template>
-
-
-<!-- Play button -->
-<template name="playButton">
-  <a href=""><i class="icon-play"></i></a>
-</template>
 
 
 <!-- quick and simple HTML5 file upload -->

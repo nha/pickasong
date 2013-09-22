@@ -54,13 +54,13 @@ Session.set('editing_song', null);
 
 
 // chanson editee visible depuis le html
-Template.song.editing = function () {
+Template.library_song.editing = function () {
   return Session.equals('editing_song', this._id);
 };
 
 
 ///evenements chanson
-Template.song.events({
+Template.library_song.events({
  
   'dblclick': function (evt, tmpl) {
     Session.set('editing_song', this._id);
@@ -76,7 +76,7 @@ Template.song.events({
 });
 
 // evenement chanson en cours de modif "#song-input"
-Template.song.events(okCancelEvents(
+Template.library_song.events(okCancelEvents(
   '#song-input',
   {
     ok: function (value) {
@@ -94,7 +94,7 @@ Template.song.events(okCancelEvents(
 ////////// Play a song //////////
 
 ///click play button on a song
-Template.playButton.events({
+Template.library_playButton.events({
   'click': function (evt, tmpl) {
     evt.preventDefault();		// we don't want to change the URL
     Meteor.call("printObj", this);	// print in the console in the server-side
