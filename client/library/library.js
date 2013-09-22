@@ -94,7 +94,6 @@ Template.library_song.events(okCancelEvents(
 ////////// Play a song //////////
 
 ///click play button on a song from the library
-// @improvement : give visual feedback to the user (or make the link bring him back to the playlist ?)
 Template.library_playButton.events({
   'click': function (evt, tmpl) {
     evt.preventDefault();		// we don't want to change the URL

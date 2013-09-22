@@ -1,8 +1,6 @@
 
 if (Meteor.isClient){
+	// nothing here...
 
-  Playlist = new Meteor.Collection('playlist');
-  Meteor.subscribe('playlist');
-	
 };
 
