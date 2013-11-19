@@ -37,31 +37,32 @@ if (Meteor.isServer) {
 			 // upvotes
 			 // downvotes
 			 // bootstraping code for testing purposes
-			// ou juste song ?? => youtube style
-			 var testJSONsonglist = [
-			 {"artist": "Belleruche",		"title": "Minor Swing",						"filename": "Minor Swing"},
-			 {"artist": "G-Swing",			"title": "Sing Sing Sing (feat. Ania Chow)",			"filename": "Sing Sing Sing (feat. Ania Chow)"},
-			 {"artist": "Caravan Palace", 		"title": "Jolie coquine", 					"filename": "Jolie coquine"},
-			 {"artist": "Parov Stellar", 		"title": "Chambermaid Swing", 					"filename": "Chambermaid Swing"},
-			 {"artist": "Parov Stellar", 		"title": "Libella Swing", 					"filename": "Libella Swing"},
-			 {"artist": "Pink Martini", 		"title": "Je ne veux pas travailler", 				"filename": "Je ne veux pas travailler"},
-			 {"artist": "Sexi Sushi", 		"title": "Enfant de putain _ Salope ta mère", 			"filename": "Enfant de putain _ Salope ta mère"}
-			 ];
-			 for (var i = 0; i < testJSONsonglist.length; i++) {
-				 Songs.insert(testJSONsonglist[i]);
-			 }
-
-			 // test playlist 
+			 // ou juste song ?? => youtube style
 			 /*
-			    var testJSONplaylist = [
-
+			    var testJSONsonglist = [
+			    {"artist": "Belleruche",		"title": "Minor Swing",						"filename": "Minor Swing"},
+			    {"artist": "G-Swing",			"title": "Sing Sing Sing (feat. Ania Chow)",			"filename": "Sing Sing Sing (feat. Ania Chow)"},
+			    {"artist": "Caravan Palace", 		"title": "Jolie coquine", 					"filename": "Jolie coquine"},
 			    {"artist": "Parov Stellar", 		"title": "Chambermaid Swing", 					"filename": "Chambermaid Swing"},
-			    {"artist": "Parov Stellar", 		"title": "Libella Swing", 					"filename": "Libella Swing"}
+			    {"artist": "Parov Stellar", 		"title": "Libella Swing", 					"filename": "Libella Swing"},
+			    {"artist": "Pink Martini", 		"title": "Je ne veux pas travailler", 				"filename": "Je ne veux pas travailler"},
+			    {"artist": "Sexi Sushi", 		"title": "Enfant de putain _ Salope ta mère", 			"filename": "Enfant de putain _ Salope ta mère"}
 			    ];
-			    for (var i = 0; i < testJSONplaylist.length; i++) {
-			    Playlist.insert(testJSONplaylist[i]);
+			    for (var i = 0; i < testJSONsonglist.length; i++) {
+			    Songs.insert(testJSONsonglist[i]);
 			    }
 			  */
+				 // test playlist 
+				 /*
+				    var testJSONplaylist = [
+
+				    {"artist": "Parov Stellar", 		"title": "Chambermaid Swing", 					"filename": "Chambermaid Swing"},
+				    {"artist": "Parov Stellar", 		"title": "Libella Swing", 					"filename": "Libella Swing"}
+				    ];
+				    for (var i = 0; i < testJSONplaylist.length; i++) {
+				    Playlist.insert(testJSONplaylist[i]);
+				    }
+				  */
 			 }
 			})();
 
@@ -84,7 +85,10 @@ if (Meteor.isServer) {
 			console.log(musicList);
 			for (var i = 0; i < musicList.length; i++) {
 				console.log(musicList[i]);
+				Songs.insert({"song": musicList[i]});	// change to "song" : and make simple songs
 			}
+
+
 
 	});//~Meteor.startup
 }//~Meteor.isServer
@@ -108,32 +112,33 @@ function getMusicFileList() {
 
 
 // http://stackoverflow.com/questions/10049557/reading-all-files-in-a-directory-store-them-in-objects-and-send-the-object
-function populateDB(musicPath, callback) {
-	//  Fiber(function() { 
-	var data = {};
-	fs.readdir(musicPath, function(err, files){
-			if (err) {
-			console.log('main.js : populateDB : error reading music directory - ' + err);
-			throw err;
-			}
-			var c=0;
-			console.log('reading music files');
-			files.forEach(function(file){
-				c++;
-				//console.log(file);
-				data[c] = file;
-				//Songs.insert({songpath: file});	// TODO suppress var data
-				if (0===--c) {
-				console.log(c + ' ' + data);  //socket.emit('init', {data: data});
-				callback(data);
-				}
-				});
-			});
-
-	//  }).run();  
+// same as above, but async style but more couple and not working :'(
+/*
+   function populateDB(musicPath, callback) {
+//  Fiber(function() { 
+var data = {};
+fs.readdir(musicPath, function(err, files){
+if (err) {
+console.log('main.js : populateDB : error reading music directory - ' + err);
+throw err;
 }
+var c=0;
+console.log('reading music files');
+files.forEach(function(file){
+c++;
+//console.log(file);
+data[c] = file;
+//Songs.insert({songpath: file});	// TODO suppress var data
+if (0===--c) {
+console.log(c + ' ' + data);  //socket.emit('init', {data: data});
+callback(data);
+}
+});
+});
 
-
+//  }).run();  
+}
+ */
 
 
 
