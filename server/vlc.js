@@ -82,7 +82,7 @@ VLCplayer.prototype.InitSocketVLC = function() {
 
 // start (c)VLC with(out) its graphical interface but with it's RC interface
 // and then use a socket to connect to it
-// @improvement : test if vlc if running ?
+// @improvement : test if vlc if running (fct below)?
 VLCplayer.prototype.startVLC = function() {
 	exec('(vlc --extraintf rc --rc-host ' + this.vlcHost + ':' + this.vlcPort + ') &', puts);        	// start VLC (vlc --extraintf rc --rc-host localhost:1234) &
 }//~startVLC
