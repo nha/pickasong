@@ -27,3 +27,17 @@ http://stackoverflow.com/questions/10128744/meteor-js-running-in-a-debugger
 
 
 
+
+
+## mongo
+meteor mongo
+db.getCollectionNames()
+show collections
+db.songs.find()
+db.songs.find({"song" : "Chambermaid Swing.ogg"})
+
+
+
+
+
+

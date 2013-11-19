@@ -113,8 +113,8 @@ VLCplayer.prototype.sendCommand =  function(cmd) {
 // VLC -I rc
 // > longhelp
 
-VLCplayer.prototype.add = function(xyz){ this.sendCommand('add ' + this.musicPath + xyz + '.ogg'); }				// FIXME HOW TO GUESS EXTENSION ? Populate DB at startup time ???
-VLCplayer.prototype.enqueue = function(xyz){ this.sendCommand('enqueue ' + this.musicPath + xyz + '.ogg'); this.play();} 	// TODO remove play call, do it only once
+VLCplayer.prototype.add = function(xyz){ this.sendCommand('add ' + this.musicPath + xyz); }				// TODO the extension is not guessed here
+VLCplayer.prototype.enqueue = function(xyz){ this.sendCommand('enqueue ' + this.musicPath + xyz); this.play();} 	// TODO remove play call, do it only once
 VLCplayer.prototype.playlist = function(){ this.sendCommand('playlist'); } 
 VLCplayer.prototype.play = function(){ this.sendCommand('play'); } 
 VLCplayer.prototype.stop = function(){ this.sendCommand('stop'); } 

@@ -4,12 +4,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Artist</th>
-          <th>Title</th>
-<!--
-          <th>Lenght</th>
-          <th>Comment </th>
--->
+          <th>Song</th>
         </tr>
       </thead>
       <tbody>
@@ -27,21 +22,13 @@
 
 <template name="library_song">
        <tr>
-          <td> <a href="searchquery?artist={{artist}}">{{artist}}</a> </td>
            {{#if editing}}
-             <td> <input id="song-input" type="text" value= "{{title}}" > </td>
+             <td> <input id="song-input" type="text" value= "{{song}}" > </td>
            {{else}}
-              <td> {{title}} </td>
+              <td> {{song}} </td>
            {{/if}}
-<!--
-          <td> <a href="#">{{lenght}}</a> </td>
-          <td> <a href="#">{{comment}}</a> </td>
--->
           <td>
               {{> library_playButton}}
-              <span class="rating"> <span>☆</span> </span>
-              <a href=""><i class="icon-plus-sign"></i></a> 
-              <a href="#delModal" role="button" data-toggle="modal"><i class="icon icon-remove"></i></a>
           </td>
         </tr>
 </template>

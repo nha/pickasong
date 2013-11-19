@@ -82,9 +82,8 @@ if (Meteor.isServer) {
 			//			populateDB('/home/nha/repo/pickasong/public', function(arr){   console.log(JSON.stringify(arr, null, 4));  });
 
 			var musicList = getMusicFileList();
-			console.log(musicList);
 			for (var i = 0; i < musicList.length; i++) {
-				console.log(musicList[i]);
+				//console.log(musicList[i]);
 				Songs.insert({"song": musicList[i]});	// change to "song" : and make simple songs
 			}
 
@@ -172,12 +171,15 @@ console.log(strObj);
 
 // play a given song - (in fact add it at the end of the playlist)
 playSong: function (song) {
-var song = Songs.findOne({ title  : song.title, artist : song.artist });	// check if the song exists (it should be) TODO check ._id with the DB (could be faster then)
-pl.enqueue(song.filename);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
+
+var mySong = Songs.findOne({"song" : song.song});	// check if the song exists (it should be) TODO check ._id with the DB (could be faster then)
+console.log(mySong.song);
+// vlc just needs the path
+pl.enqueue(mySong.song);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
 // because that information will
 // come from the forms anyway => the filename attribute should just be some kind of mongo method... (is it possible?)
 
-Playlist.insert(song);			// also update the playlist for everyone (yes this could also have been made on the client side)
+Playlist.insert(mySong);			// also update the playlist for everyone (yes this could also have been made on the client side)
 return 0;
 	  },
 
