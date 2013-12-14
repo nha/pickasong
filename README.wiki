@@ -1,20 +1,39 @@
 = Pick A Song =
 
-A web app to collaboratively manage your music playlist.
+An app to collaboratively manage your music playlist.
 
+Think of a party where one guy is the "Internet DJ".
+This guy is sometimes quite annoying, right ?
+Well after launching this app in the computer plays the music,
+everyone can add songs to the playlist from their smartphones!
 
-Think of a party where anyone is in front of the computer
-You can think of this app as a web frontend for VLC.
-
-In the end, here is it how it would work :
+Here is how it works :
 
 - scan a QR Code to get to the front page
 - find a song
 - add to the playlist
 - enjoy with your mates
 
+== Installation ==
+
+This is only to be done once .
+
+
+== Configuration ==
+
+This has to be done for each party you throw :)
+
+
+
+http://stackoverflow.com/questions/3678083/how-to-serve-a-website-over-a-wifi-without-internet
+
+
+
+Let me know how it went !
 
 == Developpers ==
+
+You can think of this app as a frontend for VLC.
 
 Emphasis on simplicity of the code:
 - carefully choosen dependencies
