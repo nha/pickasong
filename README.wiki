@@ -1,13 +1,33 @@
 = Pick A Song =
 
-A web app to collaboratively manage your music playlist:
+A web app to collaboratively manage your music playlist.
 
-- scan a QR Code
+
+Think of a party where anyone is in front of the computer
+You can think of this app as a web frontend for VLC.
+
+In the end, here is it how it would work :
+
+- scan a QR Code to get to the front page
 - find a song
 - add to the playlist
 - enjoy with your mates
 
 
+== Developpers ==
+
+Emphasis on simplicity of the code:
+- carefully choosen dependencies
+- simple approach whenever possible
+- more like a proof of concept so far really
+- feel free to hack on it !
+
 TODO
 
+DURATION
+for the duration ??
+
 http://stackoverflow.com/questions/10058997/bash-script-get-song-artist-from-command-line/10080270#10080270
+
+
+SEPARATE
