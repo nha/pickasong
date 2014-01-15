@@ -1,18 +1,18 @@
 
 <template name="library">
 <div class="well">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Song</th>
-        </tr>
-      </thead>
-      <tbody>
-    {{#each songtitle}}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Song</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each songtitle}}
       {{> library_song}}
-    {{/each}}
-      </tbody>
-    </table>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
 </template>
 
@@ -21,20 +21,20 @@
 
 
 <template name="library_song">
-       <tr>
-           {{#if editing}}
-             <td> <input id="song-input" type="text" value= "{{song}}" > </td>
-           {{else}}
-              <td> {{song}} </td>
-           {{/if}}
-          <td>
-              {{> library_playButton}}
-          </td>
-        </tr>
+<tr>
+  {{#if editing}}
+  <td> <input id="song-input" type="text" value= "{{song}}" > </td>
+  {{else}}
+  <td> {{song}} </td>
+  {{/if}}
+  <td>
+    {{> library_playButton}}
+  </td>
+</tr>
 </template>
 
 
 <!-- Play button -->
 <template name="library_playButton">
-  <a href=""><i class="icon-play"></i></a>
+<a href=""><i class="icon-play"></i></a>
 </template>

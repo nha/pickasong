@@ -3,18 +3,18 @@
 </head>
 
 <body>
-   <!--menu bar-->
-    <div class="topbar">
-      <div class="navbar-inner">
-        <div class="container">
-            <a href="#uploadModal" role="button" data-toggle="modal" ><i class="icon-plus-sign"></i></a>
-           {{loginButtons}} 
-           <div class="pull-right">       {{> searchbar}}      </div>
-        </div>
-        </div>
+  <!--menu bar-->
+  <div class="topbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <a href="#uploadModal" role="button" data-toggle="modal" ><i class="icon-plus-sign"></i></a>
+        {{loginButtons}} 
+        <div class="pull-right">       {{> searchbar}}      </div>
+      </div>
     </div>
+  </div>
 
-   <!--library-->
+  <!--library-->
   <div class="container  row-fluid span12">
     <h1>library</h1>
     {{> library}}
@@ -27,11 +27,11 @@
   </div>
 
 
-   <!------------------------------------------
-	hidden stuff after that point
-    ------------------------------------------>
+  <!------------------------------------------
+  hidden stuff after that point
+  ------------------------------------------>
 
-   <!--pop up suppression-->
+  <!--pop up suppression-->
   <div class="modal small hide fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -41,21 +41,21 @@
       <p class="error-text">Are you sure you want to delete the song ?</p>
     </div>
     <div class="modal-footer">
-       <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-       <button class="btn btn-danger" data-dismiss="modal">Delete</button>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      <button class="btn btn-danger" data-dismiss="modal">Delete</button>
     </div>
-</div>
+  </div>
 
-   <!--pop up upload-->
+  <!--pop up upload-->
   <div class="modal small hide fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       <h3 id="myModalLabel">Upload audio file</h3>
     </div>
     <div class="modal-body">
-        {{> fileUpload}}
+      {{> fileUpload}}
     </div>
-</div>
+  </div>
 
 
 </body>
@@ -71,12 +71,12 @@
 
 
 <template name="searchbar">
-     <div class="input-append">
-        <input type="text" id="" name="" placeholder="Pick A Song" >
-           <span class="add-on">
-              <i class="icon-search"></i>
-           </span>
-    </div>
+<div class="input-append">
+  <input type="text" id="" name="" placeholder="Pick A Song" >
+  <span class="add-on">
+    <i class="icon-search"></i>
+  </span>
+</div>
 </template>
 
 
@@ -84,7 +84,7 @@
 
 <!-- quick and simple HTML5 file upload -->
 <template name="fileUpload">
-  <input type=file />
+<input type=file />
 </template>
 
 

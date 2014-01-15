@@ -11,6 +11,6 @@
 }
 .rating > span:hover:before,
 .rating > span:hover ~ span:before {
-   content: "\2605";
-   position: absolute;
+  content: "\2605";
+  position: absolute;
 }

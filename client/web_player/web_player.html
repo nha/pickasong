@@ -1,38 +1,38 @@
 <!-- HTML code for the web player -->
 
 <!--
-     note : unlike the rest of this app, this code is meant to be (ultimately) accessible only to the admin of the event 
-     that means only one 'instance' of the player. The code isn't meant otherwise. 
-     for instance the volume isn't a Meteor Collection, which means that when changing it, other (non existing :) players will not get noticed
-     other than that, it is not a real problem.
-     In short these control have not feedback : if VLC or another user changes it, it is not reflected on the other.
+note : unlike the rest of this app, this code is meant to be (ultimately) accessible only to the admin of the event 
+that means only one 'instance' of the player. The code isn't meant otherwise. 
+for instance the volume isn't a Meteor Collection, which means that when changing it, other (non existing :) players will not get noticed
+other than that, it is not a real problem.
+In short these control have no feedback : if VLC or another user changes it, it is not reflected on the other clients.
 -->
 
 <template name='player'>
 
-	{{> play}}
+{{> play}}
 
-	{{> pause}}	
+{{> pause}}	
 
-	{{> stop}}
-	
-	{{> setVolume}}
-	
+{{> stop}}
+
+{{> setVolume}}
+
 </template>
 
 <template name='play'>
-	<input type='button' value='Play!' />
+<input type='button' value='Play!' />
 </template>
 
 <template name='pause'>
-	<input type='button' value='Pause' />
+<input type='button' value='Pause' />
 </template>
 
 <template name='stop'>
-	<input type='button' value='Stop' />
+<input type='button' value='Stop' />
 </template>
 
 <template name='setVolume'>
-	<!-- default VLC volume is 100. -->
-	<input type="range"  min="0" max="100" value="100"  step="1"/>
+<!-- default VLC volume is 100. -->
+<input type="range"  min="0" max="100" value="100"  step="1"/>
 </template>
