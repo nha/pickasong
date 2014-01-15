@@ -2,12 +2,12 @@
 
 An app to collaboratively manage your music playlist.
 
-Think of a party where one guy is the "Internet DJ".
+Think of a party where one guy is the self-claimed "Internet DJ".
 This guy is sometimes quite annoying, right ?
-Well after launching this app in the computer plays the music,
-everyone can add songs to the playlist from their smartphones!
+Well after launching this app in the computer which plays the music,
+everyone can add songs to the playlist from their smartphones \o/
 
-Here is how it works :
+Here is (not quite yet) works :
 
 - scan a QR Code to get to the front page
 - find a song
@@ -17,15 +17,11 @@ Here is how it works :
 == Installation ==
 
 This is only to be done once .
-
+Install VLC and meteorJS
 
 == Configuration ==
 
-This has to be done for each party you throw :)
-
-
-
-http://stackoverflow.com/questions/3678083/how-to-serve-a-website-over-a-wifi-without-internet
+Instructions to come - but first the feature will have to be developped
 
 
 
@@ -33,7 +29,7 @@ Let me know how it went !
 
 == Developpers ==
 
-You can think of this app as a frontend for VLC.
+You can think of this app as a frontend for VLC (for now).
 
 Emphasis on simplicity of the code:
 - carefully choosen dependencies
@@ -41,12 +37,3 @@ Emphasis on simplicity of the code:
 - more like a proof of concept so far really
 - feel free to hack on it !
 
-TODO
-
-DURATION
-for the duration ??
-
-http://stackoverflow.com/questions/10058997/bash-script-get-song-artist-from-command-line/10080270#10080270
-
-
-SEPARATE

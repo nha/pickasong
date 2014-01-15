@@ -1,4 +1,5 @@
-//publishes data to the clients
+// publishing rules
+// not enforced by meteor conf yet
 
 if(Meteor.isServer){
 
@@ -15,19 +16,12 @@ if(Meteor.isServer){
   });
 
 
-  // evenement lorsqu'une chanson est ajoutee a la playlist
+  // event when a song is added to the playlist
   Playlist.find().observe({
     added: function(item){ 
-      console.log('nouvelle chanson dans la playlist');
-      //Playlist(item.message)
+      console.log('new song in the playlist');
     }
   });
 
 }
-
-
-//test
-/// Songs.insert({artist: "Parov Stellar", title: "Catgroove", lenght: "2:38", comment: "inserted by hand with love"});
-
-
 
