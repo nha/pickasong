@@ -15,8 +15,8 @@ VLCplayer = function VLCplayer(host, port){
 	this.vlcHost = host?host:"localhost";
 	this.vlcPort = port?port:"1234";
 	this.socket = undefined;
-	this.musicPath = process.env.PWD+'/public/';
-	this.connectedToVLC = false;		// unused
+	this.musicPath = process.env.PWD+'/public/';	// TODO global from config?
+	this.connectedToVLC = false;			// unused
 
 
 
@@ -83,8 +83,11 @@ VLCplayer.prototype.InitSocketVLC = function() {
 // start (c)VLC with(out) its graphical interface but with it's RC interface
 // and then use a socket to connect to it
 // @improvement : test if vlc if running (fct below)?
+// start VLC (vlc --extraintf rc --rc-host localhost:1234) &
 VLCplayer.prototype.startVLC = function() {
-	exec('(vlc --extraintf rc --rc-host ' + this.vlcHost + ':' + this.vlcPort + ') &', puts);        	// start VLC (vlc --extraintf rc --rc-host localhost:1234) &
+	exec('(vlc --extraintf rc --rc-host ' + this.vlcHost + ':' + this.vlcPort + ') &',
+	 	puts
+	    ); 
 }//~startVLC
 
 

@@ -7,7 +7,6 @@
         "express": "latest",
         "jade": "latest",
         "json-socket": "*"
-
     },
     "author": "nha"
 }

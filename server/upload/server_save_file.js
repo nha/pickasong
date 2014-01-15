@@ -2,6 +2,12 @@
  * TODO support other encodings:
  * http://stackoverflow.com/questions/7329128/how-to-write-binary-data-to-a-file-using-node-js
  */
+
+// TODO add here the file in the right collections
+// will become usefull only when a way to prevent a full reload when 
+// the downloaded song is saved is found
+
+
 Meteor.methods({
   saveFile: function(blob, name, path, encoding) {
     var path = cleanPath(path) ;
