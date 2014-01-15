@@ -1,12 +1,12 @@
 {
-    "name": "pickasong",
-    "version": "0.0.0",
-    "description": "collaborative playlist",
-    "dependencies": {
-        "socket.io": "latest",
-        "express": "latest",
-        "jade": "latest",
-        "json-socket": "*"
-    },
-    "author": "nha"
+  "name": "pickasong",
+  "version": "0.0.1",
+  "description": "collaborative playlist - a quick and dirty prototype, I might one day turn it into something meaningfull",
+  "dependencies": {
+    "socket.io": "latest",
+    "express": "latest",
+    "jade": "latest",
+    "json-socket": "*"
+  },
+  "author": "nha"
 }

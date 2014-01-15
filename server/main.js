@@ -2,146 +2,51 @@
 
 sys = Npm.require('sys');
 exec = Npm.require('child_process').exec;
-//io = Npm.require('socket.io')) ;
 fs = Npm.require('fs') ;
-
-// tcp library
-//http://nodejs.org/api/net.html
 net = Npm.require('net');
 Future  = Npm.require('fibers/future');
 
 puts = function(error, stdout, stderr) { sys.puts(error); sys.puts(stdout); sys.puts(stderr); }
-//puts = function(error, stdout, stderr) { if(error){sys.puts(error)}; if(stdout){sys.puts(stdout)}; if(stderr){sys.puts(stderr)}; }
+
 
 if (Meteor.isServer) {
-	Meteor.startup(function () {
-			console.log("Server starting up!");
-			console.log(process.cwd());	// equivalent a  exec("pwd", puts);
-			console.log(process.env.PWD);
+  Meteor.startup(function () {
+    console.log("Server starting up!");
 
-			pl = new VLCplayer();
+    // launches VLC 
+    pl = new VLCplayer();
 
+    // bootstrap music list from /public
+    (function() {		
+      Playlist.remove({});
+      Songs.remove({});
+      if (Songs.find().count() === 0) {
+        var musicList = getMusicFileList('/public/');
+        for (var i = 0; i < musicList.length; i++) {
+          Songs.insert({"song": musicList[i]});
+        }
+      }
+    })();
 
-			(function() {		// some bootsrap data that corresponds to the data in the /public directory
-			 Playlist.remove({});
-			 Songs.remove({});
-			 if (Songs.find().count() === 0) {
-
-			 // exemple de donnees :
-			 // etre coherent avec mongoDB (blobs binaire de musique?)
-			 // string artist
-			 // string song title
-			 // filepath ????? => see below !
-			 // lenght
-			 // comment
-			 // upvotes
-			 // downvotes
-			 // bootstraping code for testing purposes
-			 // ou juste song ?? => youtube style
-			 /*
-			    var testJSONsonglist = [
-			    {"artist": "Belleruche",		"title": "Minor Swing",						"filename": "Minor Swing"},
-			    {"artist": "G-Swing",			"title": "Sing Sing Sing (feat. Ania Chow)",			"filename": "Sing Sing Sing (feat. Ania Chow)"},
-			    {"artist": "Caravan Palace", 		"title": "Jolie coquine", 					"filename": "Jolie coquine"},
-			    {"artist": "Parov Stellar", 		"title": "Chambermaid Swing", 					"filename": "Chambermaid Swing"},
-			    {"artist": "Parov Stellar", 		"title": "Libella Swing", 					"filename": "Libella Swing"},
-			    {"artist": "Pink Martini", 		"title": "Je ne veux pas travailler", 				"filename": "Je ne veux pas travailler"},
-			    {"artist": "Sexi Sushi", 		"title": "Enfant de putain _ Salope ta mère", 			"filename": "Enfant de putain _ Salope ta mère"}
-			    ];
-			    for (var i = 0; i < testJSONsonglist.length; i++) {
-			    Songs.insert(testJSONsonglist[i]);
-			    }
-			  */
-				 // test playlist 
-				 /*
-				    var testJSONplaylist = [
-
-				    {"artist": "Parov Stellar", 		"title": "Chambermaid Swing", 					"filename": "Chambermaid Swing"},
-				    {"artist": "Parov Stellar", 		"title": "Libella Swing", 					"filename": "Libella Swing"}
-				    ];
-				    for (var i = 0; i < testJSONplaylist.length; i++) {
-				    Playlist.insert(testJSONplaylist[i]);
-				    }
-				  */
-			 }
-			})();
-
-			/*
-			   var dir= process.env.PWD + '/public/';
-			   var data={};
-			   fs.readdir(dir ,function(err, files){
-			   if (err) throw err;
-			   var c=0;
-			   console.log('reading music files');
-			   files.forEach(function(file){
-			   console.log(file);
-			   Songs.insert({songpath: file});
-			   });
-			   });
-			 */
-			//			populateDB('/home/nha/repo/pickasong/public', function(arr){   console.log(JSON.stringify(arr, null, 4));  });
-
-			var musicList = getMusicFileList();
-			for (var i = 0; i < musicList.length; i++) {
-				//console.log(musicList[i]);
-				Songs.insert({"song": musicList[i]});	// change to "song" : and make simple songs
-			}
-
-
-
-	});//~Meteor.startup
+  });//~Meteor.startup
 }//~Meteor.isServer
 
 
 
-function getMusicFileList() {
-	var allFiles = fs.readdirSync(process.env.PWD + '/public/');
+function getMusicFileList(directory) {
+  var allFiles = fs.readdirSync(process.env.PWD + directory);
 
-	// todo decide if we need to check that, or other ones or nothing at all (and eventually let VLC get harmed ?), or maybe just check at upload time...
-	/*
-	   var cleanedUpFiles = _(allFiles).reject( function(fileName) {
-	   return fileName.indexOf('.ogg') < 0;
-	   });
+  // todo decide if we need to check that,
+  // or maybe just check at upload time...
+  /*
+     var cleanedUpFiles = _(allFiles).reject( function(fileName) {
+     return fileName.indexOf('.ogg') < 0;
+     });
 
-	   return cleanedUpFiles;
-	 */
-	return allFiles;
+     return cleanedUpFiles;
+     */
+  return allFiles;
 }
-
-
-
-// http://stackoverflow.com/questions/10049557/reading-all-files-in-a-directory-store-them-in-objects-and-send-the-object
-// same as above, but async style but more couple and not working :'(
-/*
-   function populateDB(musicPath, callback) {
-//  Fiber(function() { 
-var data = {};
-fs.readdir(musicPath, function(err, files){
-if (err) {
-console.log('main.js : populateDB : error reading music directory - ' + err);
-throw err;
-}
-var c=0;
-console.log('reading music files');
-files.forEach(function(file){
-c++;
-//console.log(file);
-data[c] = file;
-//Songs.insert({songpath: file});	// TODO suppress var data
-if (0===--c) {
-console.log(c + ' ' + data);  //socket.emit('init', {data: data});
-callback(data);
-}
-});
-});
-
-//  }).run();  
-}
- */
-
-
-
-
 
 
 
@@ -150,53 +55,45 @@ callback(data);
 // ie. our internal API
 // *********************************************************************** 
 
-//@see server_save_file.js
+//Also @see server_save_file.js
 
 
 Meteor.methods({
-test: function () {
-console.log("test meteor method call");
-return 0;
-},
 
-// for debugging purposes
-print: function (string) {
-console.log(string);
-return 0;
-},
+  // for debugging purposes
+  print: function (string) {
+    console.log(string);
+    return 0;
+  },
 
 // for debugging purposes
 printObj: function(obj) {
-var strObj = JSON.stringify(obj, null, 4);
-console.log(strObj);
+  var strObj = JSON.stringify(obj, null, 4);
+  console.log(strObj);
 },
 
-// play a given song - (in fact add it at the end of the playlist)
+// play a given song: by adding it at the end of the playlist
 playSong: function (song) {
 
-var mySong = Songs.findOne({"song" : song.song});	// check if the song exists (it should be) TODO check ._id with the DB (could be faster then)
-console.log(mySong.song);
-// vlc just needs the path
-pl.enqueue(mySong.song);		// TODO TODO IMPORTANT FIND A NAMING CONVENTION OR A WAY TO HANDLE DB + FS CONSISTENCY (song.artist -#?$?#- song.title ??)
-// because that information will
-// come from the forms anyway => the filename attribute should just be some kind of mongo method... (is it possible?)
+  var mySong = Songs.findOne({"song" : song.song});
+  // vlc just needs the path
+  pl.enqueue(mySong.song);
+  Playlist.insert(mySong);	// also update the playlist for everyone
+  return 0;
+},
 
-Playlist.insert(mySong);			// also update the playlist for everyone (yes this could also have been made on the client side)
-return 0;
-	  },
+  // send a command to VLC
+  vlcCommand: function(cmd) {
+    pl.sendCommand(cmd);
+    return 0;
+  },
 
-	  // send a command to VLC
-vlcCommand: function(cmd) {
-		    pl.sendCommand(cmd);
-		    return 0;
-	    },
-
-	    // ***********************
-	    // WEB PLAYER METHODS - in web_player.js
-	    // ***********************
+  // ***********************
+  // WEB PLAYER METHODS - in web_player.js
+  // ***********************
 
 
-	    }); // ~Meteor.methods
+  }); // ~Meteor.methods
 
 
 
