@@ -7,6 +7,11 @@ This guy is sometimes quite annoying, right ?
 Well after launching this app in the computer which plays the music,
 everyone can add songs to the playlist from their smartphones \o/
 
+At the stage of a working prototype, but it's easy to run :
+- `git clone`
+- `apt-get install vlc`
+- run `meteor`
+
 Here is (not quite yet) works :
 
 - scan a QR Code to get to the front page
